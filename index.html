@@ -1,6 +1,40 @@
 <html>
-<body>
-This is a test
-hi
-</body>
+    <head>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    </head>
+    <body>
+        <div>
+            <h2>Time until we move in:</h2>
+            <h1 id="timer">00 days 00:00:00</h1>
+        </div>
+        <script type="text/javascript">
+
+            function updateTime() {
+                // Get the current date
+                var currentTime = new Date().getTime()
+                var moveInTime = Date.parse('01 Aug 2020 09:00:00 PDT');
+
+                // Subtract our move in date from current date
+                var difference = moveInTime - currentTime;
+                var seconds = Math.floor(difference / 1000) % 60;
+                var minutes = Math.floor(difference / ( 60 * 1000)) % 60;
+                var hours = Math.floor(difference / ( 60 * 60 * 1000)) % 24;
+                var days = Math.floor(difference / (24 * 60 * 60 * 1000))
+
+                // Update our label with the new time
+                $('#timer').text(days + " days " + hours + ":" + padWithZero(minutes) + ":" + padWithZero(seconds))
+            }
+
+            function padWithZero(number) {
+                if (number < 10) {
+                    return "0" + number;
+                }
+                return number;
+            }
+
+            updateTime();
+            setInterval(updateTime, 1000)
+            // Repeat forever!
+        </script>
+    </body>  
 </html>
