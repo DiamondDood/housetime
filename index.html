@@ -13,16 +13,23 @@
                 // Get the current date
                 var currentTime = new Date().getTime()
                 var moveInTime = Date.parse('01 Aug 2020 09:00:00 PDT');
+                //var moveInTime = Date.parse('08 Jul 2020 15:50:00 PDT');
 
                 // Subtract our move in date from current date
                 var difference = moveInTime - currentTime;
-                var seconds = Math.floor(difference / 1000) % 60;
-                var minutes = Math.floor(difference / ( 60 * 1000)) % 60;
-                var hours = Math.floor(difference / ( 60 * 60 * 1000)) % 24;
-                var days = Math.floor(difference / (24 * 60 * 60 * 1000))
+                if (difference > 0) {
+                    var seconds = Math.floor(difference / 1000) % 60;
+                    var minutes = Math.floor(difference / ( 60 * 1000)) % 60;
+                    var hours = Math.floor(difference / ( 60 * 60 * 1000)) % 24;
+                    var days = Math.floor(difference / (24 * 60 * 60 * 1000))
 
-                // Update our label with the new time
-                $('#timer').text(days + " days " + hours + ":" + padWithZero(minutes) + ":" + padWithZero(seconds))
+                    // Update our label with the new time
+                    $('#timer').text(days + " days " + hours + ":" + padWithZero(minutes) + ":" + padWithZero(seconds))
+                } else {
+                    $('#timer').text("We have moved in!!");
+                    $('body').css({backgroundColor: 'green'});
+                    $('body').css({color: 'blue'});
+                }
             }
 
             function padWithZero(number) {
@@ -31,10 +38,12 @@
                 }
                 return number;
             }
-
+            
+            
+            
             updateTime();
-            setInterval(updateTime, 1000)
+            setInterval(updateTime, 200);
             // Repeat forever!
-        </script>
+      </script>
     </body>  
 </html>
